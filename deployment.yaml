@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: loki
+  namespace: monitoring
+  labels:
+    app: loki
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: loki
+  template:
+    metadata:
+      labels:
+        app: loki
+    spec:
+      serviceAccountName: loki
+      containers:
+        - name: loki
+          image: grafana/loki:2.8.4
+          args: 
+            - "--config.file=/etc/loki/loki-config.yaml"
+              # resources:
+              #requests:
+              # memory: "64Mi"
+              # cpu: "10m"
+              #limits:
+              # memory: "128Mi"
+              # cpu: "500m"
+          ports:
+            - name: loki
+              containerPort: 3100
+          volumeMounts:
+          - name: loki-config
+            mountPath: /etc/loki/
+          - name: loki-storage-volume
+            mountPath: /loki/
+        - name: volume-exporter-loki-sidecar
+          image:  mnadeem/volume_exporter
+          imagePullPolicy: "Always"
+          args:
+            - --volume-dir=loki:/loki
+          ports:
+          - name: metrics-volume
+            containerPort: 9888
+          volumeMounts:
+          - mountPath: /loki/
+            name: loki-storage-volume
+            readOnly: true
+      securityContext:
+        fsGroup: 2000
+        runAsNonRoot: true
+        runAsUser: 1000
+      volumes:
+        - name: loki-config
+          configMap:
+            name: loki-config
+        - name: loki-storage-volume
+          persistentVolumeClaim:
+            claimName: loki-claim
