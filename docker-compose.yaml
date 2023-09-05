@@ -8,6 +8,9 @@ services:
     image: grafana/loki:2.8.0
     ports:
       - "3100:3100"
+    volumes:
+      - ./loki-data-volumen:/loki
+      - ./loki-config.yaml:/etc/loki/local-config.yaml:ro
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - loki
@@ -15,8 +18,10 @@ services:
   promtail:
     image: grafana/promtail:2.8.0
     volumes:
+      - ./promtail-config.yaml:/etc/promtail/config.yaml:ro
+      - /var/run/docker.sock:/var/run/docker.sock
       - /var/log:/var/log
-    command: -config.file=/etc/promtail/config.yml
+    command: -config.file=/etc/promtail/config.yaml
     networks:
       - loki
 
