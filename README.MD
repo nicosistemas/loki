@@ -1,1 +1,10 @@
-https://grafana.com/docs/loki/latest/installation/docker/
+Crear ./loki-data-volumen para alojar datos
+docker compose va a tomar los config tanto de loki como promtail
+
+docker-compose -f docker-compose.yaml up -d
+
+
+
+fuente: 
+- https://grafana.com/docs/loki/latest/installation/docker/
+- https://volkovlabs.io/blog/nginx-loki-grafana-20230129/
