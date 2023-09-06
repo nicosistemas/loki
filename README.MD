@@ -6,6 +6,10 @@ docker-compose -f docker-compose.yaml up -d
 
 El resto de los yamls son para kubernetes aún en proyecto.
 
+Test:
+
+curl -v -H "Content-Type: application/json" -XPOST -s "http://localhost:3100/loki/api/v1/push" --data-raw \
+ '{"streams": [{ "stream": { "foo": "bar2" }, "values": [ [ "1570818238000000000", "fizzbuzz" ] ] }]}'
 
 fuente: 
 - https://grafana.com/docs/loki/latest/installation/docker/
