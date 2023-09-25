@@ -14,3 +14,12 @@ curl -v -H "Content-Type: application/json" -XPOST -s "http://localhost:3100/lok
 fuente: 
 - https://grafana.com/docs/loki/latest/installation/docker/
 - https://volkovlabs.io/blog/nginx-loki-grafana-20230129/
+
+
+Promtail:
+
+Promtail instalado en windows junto con su archivo de configuración promtail-local-config.yaml
+
+.\promtail-windows-amd64.exe --config.file=promtail-local-config.yaml
+
+- https://github.com/grafana/loki/releases
