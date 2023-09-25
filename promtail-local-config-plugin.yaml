@@ -4,7 +4,7 @@ server:
   grpc_listen_port: 0
 
 #positions:
-#  filename: C:\Users\tarquinin\Documents\Promtail\positions.yaml #/tmp/positions.yaml
+#  filename: C:\Users\   n\Documents\Promtail\positions.yaml #/tmp/positions.yaml
 
 clients:
   - url: http://172.17.39.5:3100/loki/api/v1/push
