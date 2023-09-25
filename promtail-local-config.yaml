@@ -1,0 +1,38 @@
+#This is promtail-local-config.yaml 
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+#positions:
+#  filename: C:\Users\tarquinin\Documents\Promtail\positions.yaml #/tmp/positions.yaml
+
+clients:
+  - url: http://172.17.39.5:3100/loki/api/v1/push
+
+scrape_configs:
+- job_name: system
+  pipeline_stages:
+  
+  - output:
+      source: message
+ 
+      action_on_failure: skip
+  static_configs:
+  - targets:
+      - localhost
+    labels:
+      job: pc14-local-logsHTTP
+      agent: promtail
+      __path__: \\pcprd14\logsHTTP\*
+  - targets:
+      - localhost
+    labels:
+      job: pc14-local-PolicyCenter904
+      agent: promtail
+      __path__: \\pcprd14\logsGW\prod\PolicyCenter904\*
+  - targets:
+      - localhost
+    labels:
+      job: pc14-local-logs_appserver
+      agent: promtail
+      __path__: \\pcprd14\logs_appserver\*
