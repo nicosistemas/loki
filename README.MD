@@ -18,7 +18,7 @@ fuente:
 
 Promtail:
 
-Promtail instalado en windows junto con su archivo de configuración promtail-local-config.yaml
+Promtail instalado en windows (si, windowsssss :$ ) junto con su archivo de configuración promtail-local-config.yaml
 
 .\promtail-windows-amd64.exe --config.file=promtail-local-config.yaml
 
